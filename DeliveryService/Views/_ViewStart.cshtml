@@ -1,0 +1,10 @@
+﻿@{
+    if (System.Web.HttpContext.Current.Request.Url.AbsolutePath.ToLower().StartsWith("/admin"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}

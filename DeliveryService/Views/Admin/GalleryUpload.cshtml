@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "GalleryUpload";
+}
+<select id="select_folder">
+    <option>Team</option>
+    <option>Pizzeria</option>
+</select>
+
+@using (Html.BeginForm("GalleryUpload", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="hidden" name="Folder" id="folder" />
+    <input type="file" name="file" />
+    <button type="submit" name="Submit" id="Submit">Hochladen</button>
+}
+
+<script>
+    $(document).ready(function () {
+        $('#select_folder').change(function () {
+            $('#folder').val($('#select_folder').val());
+        });
+        $('#select_folder').change();
+    });
+</script>

@@ -1,0 +1,24 @@
+﻿@model DeliveryService.Models.AdminModel
+@{
+    ViewBag.Title = "Admin-Login";
+}
+
+@using (Html.BeginForm("Login", "Admin", FormMethod.Post, new { }))
+{
+    @*@Html.AntiForgeryToken();*@
+    @Html.ValidationSummary(true)
+
+    @Html.LabelFor(model => model.Name)
+    @Html.EditorFor(model => model.Name)
+    @Html.ValidationMessageFor(model => model.Name)
+    <br />
+
+    @Html.LabelFor(model => model.Passwort)
+    @Html.PasswordFor(model => model.Passwort)
+    @Html.ValidationMessageFor(model => model.Passwort)
+    <br />
+
+    <div class="actions">
+        <button type="submit">Login</button>
+    </div>
+}
