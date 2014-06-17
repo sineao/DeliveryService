@@ -1,0 +1,35 @@
+﻿@model DeliveryService.Models.GaleryModel
+@{
+    ViewBag.Title = "Bild Hochladen";
+}
+
+<div class="main-body">
+    <div>
+        <select id="select_folder">
+            @if (Model != null && Model.Folders != null && Model.Folders.Count > 0)
+            {
+                foreach (var folder in Model.Folders) { 
+                    <option>@folder</option>
+                }
+            }
+        </select>
+
+        @using (Html.BeginForm("GaleryUpload", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="hidden" name="Folder" id="folder" />
+            <label for="Name">Name: </label><input type="text" name="Name" id="name" />
+            <label for="Description">Beschreibung: </label><input type="text" name="Description" id="description" />
+            <label for="Name">Bild: </label><input type="file" name="file" />
+            <button type="submit" name="Submit" id="Submit">Hochladen</button>
+        }
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#select_folder').change(function () {
+                $('#folder').val($('#select_folder').val());
+            });
+            $('#select_folder').change();
+        });
+    </script>
+</div>

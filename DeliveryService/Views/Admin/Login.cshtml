@@ -8,7 +8,10 @@
 
 <div class="login-header">Anmelden</div>
 <div class="login-body">
-    <div class="error" id="login_error"></div>
+    @if (ViewBag.Error == true)
+    {
+        <div class="error" id="login_error">Falsche eingabe.</div>
+    }
     @using (Html.BeginForm("Login", "Admin", FormMethod.Post, new { }))
     {
         @*@Html.AntiForgeryToken();*@
@@ -29,4 +32,3 @@
         </div>
     }
 </div>
-

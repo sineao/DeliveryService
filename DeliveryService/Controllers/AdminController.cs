@@ -36,6 +36,7 @@ namespace DeliveryService.Controllers
                 {
                     CurrentUser.IsAdmin = true;
                     Response.Redirect("/Admin");
+                    return Content("Angemeldet");
                 }
                 else
                 {
@@ -48,7 +49,7 @@ namespace DeliveryService.Controllers
             return View(model);
         }
 
-        public ActionResult Galery(string Folder, string Name)
+        public ActionResult GaleryUpload(string Folder, string Name, string Description)
         {
             if (!CurrentUser.IsAdmin)
             {
@@ -72,12 +73,45 @@ namespace DeliveryService.Controllers
                         path = Path.Combine(Server.MapPath("~/Content/Gallery/"), Folder, newFileName);
                     }
                     file.SaveAs(path);
+
+                    if (!string.IsNullOrEmpty(Description))
+                    {
+                        System.IO.File.WriteAllText(Path.Combine(Server.MapPath("~/Content/Gallery/"), Folder + "/description", newFileName) + ".txt", Description);
+                    }
+
+                    System.IO.File.WriteAllBytes(Path.Combine(Server.MapPath("~/Content/Gallery/"), Folder + "/thumbnail", newFileName), Utilities.ResizeImage(System.IO.File.ReadAllBytes(path), 150, 150, false));
                 }
             }
 
             var model = new Models.GaleryModel();
 
             model.Folders = Directory.GetDirectories(Server.MapPath("~/Content/Gallery/")).Select(x=>new DirectoryInfo(x).Name).ToList();
+
+            return View(model);
+        }
+
+        public ActionResult Galery()
+        {
+            var model = new Models.GaleryModel();
+
+            foreach(var directory in Directory.GetDirectories(Server.MapPath("~/Content/Gallery/")))
+            {
+                var newFolder = new Models.GaleryFolder();
+                newFolder.Name = new DirectoryInfo(directory).Name;
+                foreach (var file in Directory.GetFiles(directory))
+                {
+                    var newFile = new Models.Picture();
+                    newFile.File = Utilities.MapURL(file);
+                    newFile.Name = new FileInfo(file).Name;
+
+                    newFile.Thumbnail =  Utilities.MapURL(file.Replace(newFile.Name, "thumbnail/" + newFile.Name));
+                    newFile.Description = System.IO.File.ReadAllText(file.Replace(newFile.Name, "description/" + newFile.Name + ".txt"));
+
+                    newFolder.Pictures.Add(newFile);
+                }
+                model.GaleryFolders.Add(newFolder);
+            }
+
 
             return View(model);
         }
