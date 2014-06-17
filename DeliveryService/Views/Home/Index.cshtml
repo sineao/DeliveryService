@@ -21,7 +21,7 @@
     </section>
 
     <!-- Portfolio -->
-    <section id="portfolio" class="two">
+    @*<section id="portfolio" class="two">
         <div class="container">
 
             <header>
@@ -81,7 +81,9 @@
             </div>
 
         </div>
-    </section>
+    </section>*@
+
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/Content/Galery/galery.html")))
 
     <!-- About Me -->
     <section id="about" class="three">
