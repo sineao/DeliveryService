@@ -1,0 +1,275 @@
+﻿.fly-menu {
+    position: fixed;
+    left: 50%;
+    top: 0px;
+    width: 1010px;
+    height: 40px;
+    background-color: white;
+    margin: 0 0 0 -505px;
+    border-bottom: 2px solid black;
+    padding-top: 9px;
+}
+
+.admin-menu {
+    position: fixed;
+    top: 100%;
+    width: 100%;
+    height: 30px;
+    background-color: white;
+    margin: -30px 0 0 0;
+    border-top: 1px solid black;
+    padding-bottom: 9px;
+    z-index: 16;
+    background-color: #ffeeee;
+    padding-left: 10px;
+}
+
+.main {
+    position: absolute;
+    width: 1010px;
+    height: auto;
+    z-index: 15;
+    top: 20px;
+    left: 50%;
+    margin: 0 0 50px -505px;
+}
+
+.main-header {
+    font-size: 20px;
+    float: left;
+}
+
+    .main-header a {
+        color: #aaaaaa;
+    }
+
+.follow-item {
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: solid;
+    border-width: 1px;
+    border-color: #cccccc;
+}
+
+.active a {
+    color: #000000;
+}
+
+.main-body {
+    border: solid;
+    border-width: 2px;
+    padding: 20px;
+    width: 100%;
+    background-color: #eeeeee;
+    margin-bottom:40px;
+}
+
+.login {
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    z-index: 15;
+    top: 50%;
+    left: 50%;
+    margin: -100px 0 0 -150px;
+}
+
+.login-header {
+    font-size: 20px;
+}
+
+.login-body {
+    border: solid;
+    border-width: 2px;
+    padding: 10px;
+    width: 100%;
+}
+
+.input {
+    padding: 5px;
+    width: 100%;
+}
+
+input {
+    width: 100%;
+}
+
+.error {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    color: red;
+    border-color: red;
+    display: none;
+    border: solid;
+    border-width: 1px;
+}
+
+.save-button {
+    width:100%;
+    text-align:right;
+}
+
+    .save-button input {
+        width: auto;
+        background-color:white;
+        border:solid 1px black;
+        padding:5px 10px 5px 10px;
+    }
+
+.new-row {
+    height: 10px;
+    width: 100%;
+}
+
+.new-col {
+    float: left;
+    height: 10px;
+    width: 30px;
+}
+
+.new-col-3 {
+    display: none;
+}
+
+.new-row-3 {
+    clear: left;
+}
+
+.group {
+    width: 300px;
+    float: left;
+    margin-bottom: 30px;
+}
+
+.game {
+    border: solid;
+    border-width: 1px;
+    padding: 0px;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+.number {
+    width: 30px;
+    background-color: #ffffff;
+    border: solid;
+    border-width: 1px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.home-team {
+    float: left;
+    width: 45%;
+    text-align: center;
+}
+
+.away-team {
+    float: right;
+    width: 45%;
+    text-align: center;
+}
+
+.game-seperator {
+    float: left;
+    width: 10%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.ranking {
+    border: solid;
+    border-width: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 100%;
+    background-color: #ffffff;
+    margin-top: 1px;
+}
+
+.ranking-place {
+    float: left;
+    width: 20px;
+}
+
+.ranking-name {
+    float: left;
+    width: 50%;
+}
+
+.ranking-points {
+    float: right;
+    width: 20%;
+    text-align: right;
+}
+
+.ranking-new-row {
+    height: 5px;
+    width: 100%;
+}
+
+@media only screen and (max-width: 1040px) {
+    .fly-menu {
+        width: 680px;
+        margin: 0 0 0 -340px;
+    }
+
+    .main {
+        width: 680px;
+        margin: 0 0 0 -340px;
+    }
+
+    .new-col-3 {
+        display: block;
+    }
+
+    .new-col-2 {
+        display: none;
+    }
+
+    .new-row-3 {
+        clear: none;
+    }
+
+    .new-row-2 {
+        clear: left;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .fly-menu {
+        width: 350px;
+        margin: 0 0 0 -175px;
+        height: 32px;
+    }
+
+    .main {
+        width: 350px;
+        margin: 0 0 0 -175px;
+    }
+
+    .new-col-3 {
+        display: block;
+    }
+
+    .new-col-2 {
+        display: block;
+    }
+
+    .new-col {
+        display: none;
+    }
+
+    .new-row-3 {
+        clear: none;
+    }
+
+    .new-row-2 {
+        clear: none;
+    }
+
+    .main-header {
+        font-size: 15px;
+    }
+}

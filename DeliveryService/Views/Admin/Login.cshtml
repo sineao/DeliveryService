@@ -1,24 +1,32 @@
 ﻿@model DeliveryService.Models.AdminModel
+
 @{
     ViewBag.Title = "Admin-Login";
+    ViewBag.MainClass = "login";
+    ViewBag.ShowMenu = false;
 }
 
-@using (Html.BeginForm("Login", "Admin", FormMethod.Post, new { }))
-{
-    @*@Html.AntiForgeryToken();*@
-    @Html.ValidationSummary(true)
+<div class="login-header">Anmelden</div>
+<div class="login-body">
+    <div class="error" id="login_error"></div>
+    @using (Html.BeginForm("Login", "Admin", FormMethod.Post, new { }))
+    {
+        @*@Html.AntiForgeryToken();*@
+        @Html.ValidationSummary(true)
 
-    @Html.LabelFor(model => model.Name)
-    @Html.EditorFor(model => model.Name)
-    @Html.ValidationMessageFor(model => model.Name)
-    <br />
+        @Html.LabelFor(model => model.Name)
+        @Html.EditorFor(model => model.Name)
+        @Html.ValidationMessageFor(model => model.Name)
+        <br />
 
-    @Html.LabelFor(model => model.Passwort)
-    @Html.PasswordFor(model => model.Passwort)
-    @Html.ValidationMessageFor(model => model.Passwort)
-    <br />
+        @Html.LabelFor(model => model.Passwort)
+        @Html.PasswordFor(model => model.Passwort)
+        @Html.ValidationMessageFor(model => model.Passwort)
+        <br />
 
-    <div class="actions">
-        <button type="submit">Login</button>
-    </div>
-}
+        <div class="actions">
+            <button type="submit">Login</button>
+        </div>
+    }
+</div>
+

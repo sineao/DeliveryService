@@ -24,7 +24,11 @@ namespace DeliveryService.Controllers
         public ActionResult Login(string Name, string Passwort)
         {
             if (CurrentUser.IsAdmin)
-                return Index();
+            {
+                Response.Redirect("/Admin");
+                return Content("Bereits angemeldet");
+            }
+                
 
             if (!string.IsNullOrEmpty(Name) && !String.IsNullOrEmpty(Passwort))
             {
@@ -44,7 +48,7 @@ namespace DeliveryService.Controllers
             return View(model);
         }
 
-        public ActionResult GalleryUpload(string Folder)
+        public ActionResult Galery(string Folder, string Name)
         {
             if (!CurrentUser.IsAdmin)
             {
@@ -56,15 +60,26 @@ namespace DeliveryService.Controllers
             {
                 var file = Request.Files[0];
 
-                if (file != null && file.ContentLength > 0)
+                if (file != null && file.ContentLength > 0 && !string.IsNullOrEmpty(Name))
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/Content/Gallery/"), Folder, fileName);
+                    var extension = Path.GetExtension(file.FileName);
+                    var newFileName = Name + extension;
+                    var path = Path.Combine(Server.MapPath("~/Content/Gallery/"), Folder, newFileName);
+
+                    for (int i = 1; System.IO.File.Exists(path); i++ )
+                    {
+                        newFileName = Name + "-" + i + extension;
+                        path = Path.Combine(Server.MapPath("~/Content/Gallery/"), Folder, newFileName);
+                    }
                     file.SaveAs(path);
                 }
             }
 
-            return View();
+            var model = new Models.GaleryModel();
+
+            model.Folders = Directory.GetDirectories(Server.MapPath("~/Content/Gallery/")).Select(x=>new DirectoryInfo(x).Name).ToList();
+
+            return View(model);
         }
     }
 }
