@@ -65,21 +65,21 @@ namespace DeliveryService.Controllers
                 {
                     var extension = Path.GetExtension(file.FileName);
                     var newFileName = Name + extension;
-                    var path = Path.Combine(Server.MapPath("~/Content/Gallery/"), Folder, newFileName);
+                    var path = Path.Combine(Server.MapPath("~/Content/Galery/"), Folder, newFileName);
 
                     for (int i = 1; System.IO.File.Exists(path); i++ )
                     {
                         newFileName = Name + "-" + i + extension;
-                        path = Path.Combine(Server.MapPath("~/Content/Gallery/"), Folder, newFileName);
+                        path = Path.Combine(Server.MapPath("~/Content/Galery/"), Folder, newFileName);
                     }
                     file.SaveAs(path);
 
                     if (!string.IsNullOrEmpty(Description))
                     {
-                        System.IO.File.WriteAllText(Path.Combine(Server.MapPath("~/Content/Gallery/"), Folder + "/description", newFileName) + ".txt", Description);
+                        System.IO.File.WriteAllText(Path.Combine(Server.MapPath("~/Content/Galery/"), Folder + "/description", newFileName) + ".txt", Description);
                     }
 
-                    System.IO.File.WriteAllBytes(Path.Combine(Server.MapPath("~/Content/Gallery/"), Folder + "/thumbnail", newFileName), Utilities.ResizeImage(System.IO.File.ReadAllBytes(path), 150, 150, false));
+                    System.IO.File.WriteAllBytes(Path.Combine(Server.MapPath("~/Content/Galery/"), Folder + "/thumbnail", newFileName), Utilities.ResizeImage(System.IO.File.ReadAllBytes(path), 150, 150, false));
                 }
             }
 
@@ -90,11 +90,40 @@ namespace DeliveryService.Controllers
             return View(model);
         }
 
+        public ActionResult NewFolder(string Name)
+        {
+            if (!CurrentUser.IsAdmin)
+            {
+                Response.Redirect("/Admin/Login");
+                return Content("Nicht angemeldet");
+            }
+
+            if (!string.IsNullOrEmpty(Name))
+            {
+                var galeryPath = Server.MapPath("~/Content/Galery/" + Name + "/");
+                if (!Directory.Exists(galeryPath))
+                {
+                    Directory.CreateDirectory(galeryPath);
+                    Directory.CreateDirectory(galeryPath + "thumbnail/");
+                    Directory.CreateDirectory(galeryPath + "description/");
+                }
+            }
+
+            Response.Redirect("/Admin/Galery");
+            return Content("hinzugefügt");
+        }
+
         public ActionResult Galery()
         {
+            if (!CurrentUser.IsAdmin)
+            {
+                Response.Redirect("/Admin/Login");
+                return Content("Nicht angemeldet");
+            }
+
             var model = new Models.GaleryModel();
 
-            foreach(var directory in Directory.GetDirectories(Server.MapPath("~/Content/Gallery/")))
+            foreach(var directory in Directory.GetDirectories(Server.MapPath("~/Content/Galery/")))
             {
                 var newFolder = new Models.GaleryFolder();
                 newFolder.Name = new DirectoryInfo(directory).Name;

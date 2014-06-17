@@ -5,6 +5,21 @@
 
 <div class="main-body">
 
+
+    <div>
+        <h3>Neues Album</h3>
+        <div>
+            @using (Html.BeginForm("NewFolder", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <label for="Folder">Name: </label>
+                <input type="text" name="Name" id="name" />
+                <button type="submit" name="Submit" id="Submit">Hinzufügen</button>
+            }
+        </div>
+    </div>
+
+
+
     @foreach (var folder in Model.GaleryFolders)
     {
         <h3>@folder.Name</h3>
@@ -12,8 +27,9 @@
             <thead>
                 <tr>
                     <td width="50%">Beschreibung</td>
-                    <td width="50%-100px">Link</td>
-                    <td width="100px">Vorschau</td>
+                    <td width="30%">Link</td>
+                    <td width="150px">Vorschau</td>
+                    <td width="150px">Löschen</td>
                 </tr>
             </thead>
             <tbody>
@@ -22,7 +38,7 @@
                     <tr>
                         <td>@file.Description</td>
                         <td><a class="colorbox" href="@Html.Raw(file.File)">@file.Name</a></td>
-                        <td><img height="50" src="@file.Thumbnail"/></td>
+                        <td><img height="50" src="@file.Thumbnail" /></td>
                     </tr>
                 }
             </tbody>
